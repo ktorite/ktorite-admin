@@ -19,7 +19,7 @@ publishing {
             from(components["java"])
             groupId = "com.github.ktorite"
             artifactId = "ktorite-admin"
-            version = "1.0.0"
+            version = "v1.0.0"
         }
     }
 }

@@ -51,12 +51,12 @@
 
 <body>
   <h1>Ktorite Admin</h1>
-  <p>Welcome to the admin panel. <a th:href="@{/admin}">Home</a></p>
+  <p>Welcome to the admin panel. <a href="/admin">Home</a></p>
   <form method="post" action="/logout" style="display:inline"><button type="submit"
       class="btn btn-primary">Logout</button></form>
   <h2>Models</h2>
   <div th:each="model : ${models}" class="card">
-    <a th:href="@{'/admin/' + ${model.tableName.toLowerCase()}}" th:text="${model.tableName}">model</a>
+    <a th:href="'/admin/' + ${model.tableName.toLowerCase()}" th:text="${model.tableName}">model</a>
   </div>
   <p th:if="${modelCount == 0}">No models registered.</p>
 </body>

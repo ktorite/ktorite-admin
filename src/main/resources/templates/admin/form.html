@@ -77,7 +77,7 @@
 
 <body>
   <h1 th:text="${title}">Form</h1>
-  <a th:href="@{'/admin/' + ${modelName}}">Back to list</a>
+  <a th:href="'/admin/' + ${modelName}">Back to list</a>
   <div class="error" th:if="${error != null}" th:text="${error}">error</div>
   <form method="post" th:action="${action}">
     <input type="hidden" name="csrf_token" th:value="${csrfToken}">

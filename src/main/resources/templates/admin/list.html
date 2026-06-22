@@ -81,7 +81,7 @@
 
 <body>
   <h1 th:text="${title}">Admin</h1>
-  <a th:href="@{/admin}">Home</a> | <a th:href="@{'/admin/' + ${modelName} + '/new'}" class="btn btn-primary">New</a>
+  <a href="/admin">Home</a> | <a th:href="'/admin/' + ${modelName} + '/new'" class="btn btn-primary">New</a>
   <table>
     <thead>
       <tr>
@@ -93,9 +93,9 @@
       <tr th:each="row : ${rows}">
         <td th:each="col : ${columns}" th:text="${row[col]}">val</td>
         <td>
-          <a th:href="@{'/admin/' + ${modelName} + '/' + ${row[pkCol]}}" class="btn">View</a>
-          <a th:href="@{'/admin/' + ${modelName} + '/' + ${row[pkCol]} + '/edit'}" class="btn">Edit</a>
-          <form method="post" th:action="@{'/admin/' + ${modelName} + '/' + ${row[pkCol]} + '/delete'}"
+          <a th:href="'/admin/' + ${modelName} + '/' + ${row[pkCol]}" class="btn">View</a>
+          <a th:href="'/admin/' + ${modelName} + '/' + ${row[pkCol]} + '/edit'" class="btn">Edit</a>
+          <form method="post" th:action="'/admin/' + ${modelName} + '/' + ${row[pkCol]} + '/delete'"
             style="display:inline">
             <input type="hidden" name="csrf_token" th:value="${csrfToken}">
             <button type="submit" class="btn btn-danger">Delete</button>
@@ -106,10 +106,10 @@
   </table>
   <div class="pagination" th:if="${totalPages > 1}">
     <a th:if="${hasPrev}"
-      th:href="@{'/admin/' + ${modelName} + '?page=' + ${prevPage} + '&per_page=' + ${perPage}}">Previous</a>
+      th:href="'/admin/' + ${modelName} + '?page=' + ${prevPage} + '&per_page=' + ${perPage}">Previous</a>
     <span th:text="'Page ' + ${page} + ' of ' + ${totalPages}">Page 1 of 1</span>
     <a th:if="${hasNext}"
-      th:href="@{'/admin/' + ${modelName} + '?page=' + ${nextPage} + '&per_page=' + ${perPage}}">Next</a>
+      th:href="'/admin/' + ${modelName} + '?page=' + ${nextPage} + '&per_page=' + ${perPage}">Next</a>
   </div>
   <p th:text="'Total: ' + ${total}">Total</p>
 </body>

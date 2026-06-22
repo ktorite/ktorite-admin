@@ -65,8 +65,8 @@
 
 <body>
   <h1 th:text="${title}">Detail</h1>
-  <a th:href="@{/admin}">Home</a> | <a th:href="@{'/admin/' + ${modelName}}" class="btn">Back to list</a> | <a
-    th:href="@{'/admin/' + ${modelName} + '/' + ${pkVal} + '/edit'}" class="btn btn-primary">Edit</a>
+  <a href="/admin">Home</a> | <a th:href="'/admin/' + ${modelName}" class="btn">Back to list</a> | <a
+    th:href="'/admin/' + ${modelName} + '/' + ${pkVal} + '/edit'" class="btn btn-primary">Edit</a>
   <table>
     <thead>
       <tr>
