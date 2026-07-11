@@ -11,11 +11,12 @@ import org.jetbrains.exposed.v1.core.Table
 import org.jetbrains.exposed.v1.jdbc.Database
 import org.thymeleaf.templatemode.TemplateMode
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
+import java.util.function.Function
 
 class KtoriteAdminPanel {
     companion object {
         @JvmStatic
-        fun install(app: Application, models: List<Table>, db: Database, loginPath: String, sessionName: String) {
+        fun install(app: Application, models: List<Table>, db: Database, loginPath: String, sessionValidator: Function<ApplicationCall, Boolean>) {
             app.install(Thymeleaf) {
                 addTemplateResolver(ClassLoaderTemplateResolver().apply {
                     prefix = "templates/"
@@ -26,9 +27,11 @@ class KtoriteAdminPanel {
             }
 
             app.routing {
+                get("/admin/") {
+                    call.respondRedirect("/admin", permanent = false)
+                }
                 get("/admin") {
-                    val sessionCookie = call.request.cookies[sessionName]
-                    if (sessionCookie == null) {
+                    if (!sessionValidator.apply(call)) {
                         call.respond(ThymeleafContent("admin/login", mapOf("loginPath" to loginPath)))
                     } else {
                         call.respond(ThymeleafContent("admin/index", mapOf("models" to models, "modelCount" to models.size)))
