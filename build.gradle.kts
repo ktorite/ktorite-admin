@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.ktorite"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories { mavenLocal(); mavenCentral(); maven("https://jitpack.io") }
 
@@ -19,7 +19,7 @@ publishing {
             from(components["java"])
             groupId = "com.github.ktorite"
             artifactId = "ktorite-admin"
-            version = "v1.0.1"
+            version = "v1.0.2"
         }
     }
 }
