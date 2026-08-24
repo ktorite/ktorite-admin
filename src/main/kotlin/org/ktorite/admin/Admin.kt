@@ -62,6 +62,9 @@ fun Route.installAdmin(models: List<Table>, db: Database) {
   models.forEach { table ->
     val name = table.tableName.lowercase()
 
+    get("/admin/$name/") {
+      call.respondRedirect("/admin/$name", permanent = false)
+    }
     get("/admin/$name") {
       val p = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
       val pp = call.request.queryParameters["per_page"]?.toIntOrNull() ?: 20
@@ -86,6 +89,9 @@ fun Route.installAdmin(models: List<Table>, db: Database) {
       )))
     }
 
+    get("/admin/$name/new/") {
+      call.respondRedirect("/admin/$name/new", permanent = false)
+    }
     get("/admin/$name/new") {
       val token = csrfToken()
       call.setCsrfCookie(token)
@@ -101,6 +107,10 @@ fun Route.installAdmin(models: List<Table>, db: Database) {
       )))
     }
 
+    post("/admin/$name/") {
+      call.response.header(HttpHeaders.Location, "/admin/$name")
+      call.respondText("", status = HttpStatusCode.TemporaryRedirect)
+    }
     post("/admin/$name") {
       val params = call.receiveParameters()
       if (!call.verifyCsrf(params)) {
@@ -127,6 +137,9 @@ fun Route.installAdmin(models: List<Table>, db: Database) {
       }
     }
 
+    get("/admin/$name/{id}/") {
+      call.respondRedirect("/admin/$name/${call.parameters["id"]}", permanent = false)
+    }
     get("/admin/$name/{id}") {
       val row = transaction(db) { findByPk(table, call.parameters["id"]!!) }
       if (row == null) {
@@ -143,6 +156,9 @@ fun Route.installAdmin(models: List<Table>, db: Database) {
       )))
     }
 
+    get("/admin/$name/{id}/edit/") {
+      call.respondRedirect("/admin/$name/${call.parameters["id"]}/edit", permanent = false)
+    }
     get("/admin/$name/{id}/edit") {
       val row = transaction(db) { findByPk(table, call.parameters["id"]!!) }
       if (row == null) {
@@ -164,6 +180,10 @@ fun Route.installAdmin(models: List<Table>, db: Database) {
       )))
     }
 
+    post("/admin/$name/{id}/") {
+      call.response.header(HttpHeaders.Location, "/admin/$name/${call.parameters["id"]}")
+      call.respondText("", status = HttpStatusCode.TemporaryRedirect)
+    }
     post("/admin/$name/{id}") {
       val params = call.receiveParameters()
       if (!call.verifyCsrf(params)) {
@@ -192,6 +212,10 @@ fun Route.installAdmin(models: List<Table>, db: Database) {
       }
     }
 
+    post("/admin/$name/{id}/delete/") {
+      call.response.header(HttpHeaders.Location, "/admin/$name/${call.parameters["id"]}/delete")
+      call.respondText("", status = HttpStatusCode.TemporaryRedirect)
+    }
     post("/admin/$name/{id}/delete") {
       val params = call.receiveParameters()
       if (!call.verifyCsrf(params)) {
